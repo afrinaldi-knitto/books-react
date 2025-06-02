@@ -1,7 +1,6 @@
-// src/features/auth/pages/Login.tsx
 import { useState } from "react";
 import LoginPage from "./page/login-page";
-import { loginApi } from "../../services/auth-services";
+import { getMeApi, loginApi } from "../../services/auth-services";
 import type { LoginPayload } from "./types";
 import { useNavigate } from "react-router";
 
@@ -30,8 +29,20 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await loginApi(form);
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+      try {
+        const meResponse = await getMeApi();
+        localStorage.setItem("role", meResponse.role);
+        if (meResponse.role === "admin") {
+          navigate("/admin", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
+      } catch {
+        localStorage.removeItem("token");
+        setError("Autentikasi gagal, silakan login kembali.");
+      }
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);

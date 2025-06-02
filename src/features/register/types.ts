@@ -1,4 +1,4 @@
-export interface ResgisterPayload {
+export interface RegisterPayload {
   email: string;
   password: string;
 }

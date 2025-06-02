@@ -1,19 +1,26 @@
 import type { IRouter } from "../types/router";
-import type { JSX } from "react";
+import { useEffect, type JSX } from "react";
 import { withGuard } from "./with-guard";
 import Login from "../features/login";
 import Register from "../features/register";
+import { useLocation, useNavigate } from "react-router";
 
 interface AuthRouteProps {
   children: JSX.Element;
 }
 
 const AuthRoute = ({ children }: AuthRouteProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const token = localStorage.getItem("token");
-  if (token) {
-    // return <Navigate to="/" replace />;
-  }
-  return children;
+
+  useEffect(() => {
+    if (token) {
+      navigate("/", { replace: true, state: { from: location } });
+    }
+  }, [token, navigate, location]);
+
+  return !token ? children : null;
 };
 
 const authRoutes: IRouter[] = [

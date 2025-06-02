@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import type { LoginPayload } from "../types";
-import ThemeSwitch from "../../../components/ThemeSwitch";
+import ThemeSwitch from "../../../components/theme-switch";
 
 interface LoginPageProps {
   form: LoginPayload;

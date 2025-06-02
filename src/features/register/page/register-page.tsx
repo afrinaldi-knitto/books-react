@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import ThemeSwitch from "../../../components/ThemeSwitch";
+import ThemeSwitch from "../../../components/theme-switch";
 
 interface RegisterPageProps {
   form: { email: string; password: string };

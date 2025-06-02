@@ -1,25 +1,18 @@
-import axios from "axios";
 import type { LoginPayload, LoginResponse } from "../features/login/types";
-import type { ResgisterPayload } from "../features/register/types";
+import type { RegisterPayload } from "../features/register/types";
+import { api, authApi } from "../utils/api";
 
-export const loginApi = async (
-  payload: LoginPayload
-): Promise<LoginResponse> => {
-  const res = await axios.post<LoginResponse>(
-    `${import.meta.env.VITE_BASE_URL}/login`,
-    payload
-  );
-
+export const loginApi = async (payload: LoginPayload) => {
+  const res = await api.post<LoginResponse>("/login", payload);
   return res.data;
 };
 
-export const registerApi = async (
-  payload: ResgisterPayload
-): Promise<{ message: string }> => {
-  const res = await axios.post(
-    `${import.meta.env.VITE_BASE_URL}/register`,
-    payload
-  );
+export const registerApi = async (payload: RegisterPayload) => {
+  const res = await api.post<{ message: string }>("/register", payload);
+  return res.data;
+};
 
+export const getMeApi = async () => {
+  const res = await authApi.get<{ id: number; role: string }>("/me");
   return res.data;
 };

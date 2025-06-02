@@ -8,7 +8,7 @@ const ThemeSwitch = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex items-center p-1 rounded-full bg-blue-100 dark:bg-gray-700 transition"
+      className="relative inline-flex items-center p-1 rounded-full bg-blue-100 dark:bg-gray-700 transition cursor-pointer"
       aria-label="Switch theme"
     >
       <motion.div
